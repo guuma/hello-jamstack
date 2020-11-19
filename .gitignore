@@ -71,3 +71,4 @@ yarn-error.log
 
 # img
 static/images/
+yarn.lock
