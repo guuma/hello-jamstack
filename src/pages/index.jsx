@@ -213,6 +213,7 @@ export const query = graphql`
         }
       }
     }
+    # 可変画像の最適化
     fruit: file(relativePath: { eq: "fruit.jpg" }) {
       childImageSharp {
         fluid(maxWidth: 320) {
@@ -231,6 +232,28 @@ export const query = graphql`
       childImageSharp {
         fluid(maxWidth: 320) {
           ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
+    # 固定画像の最適化
+    fruit: file(relativePath: { eq: "fruit.jpg" }) {
+      childImageSharp {
+        fixed(width: 200) {
+          ...GatsbyImageSharpFixed_withWebp
+        }
+      }
+    }
+    grain: file(relativePath: { eq: "grain.jpg" }) {
+      childImageSharp {
+        fixed(width: 200) {
+          ...GatsbyImageSharpFixed_withWebp
+        }
+      }
+    }
+    beverage: file(relativePath: { eq: "beverage.jpg" }) {
+      childImageSharp {
+        fixed(width: 200) {
+          ...GatsbyImageSharpFixed_withWebp
         }
       }
     }
