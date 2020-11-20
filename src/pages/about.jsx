@@ -2,6 +2,8 @@ import React from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import { Layout } from "../components/Layout/index"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUtensils, faCheckSquare } from "@fortawesome/free-solid-svg-icons"
 
 export default ({ data }) => (
   <Layout>
@@ -28,7 +30,7 @@ export default ({ data }) => (
         <h1 className="bar">ESSENTIALSについて</h1>
         <aside className="info">
           <div className="subtitle">
-            <i className="fas fa-utensils" />
+            <FontAwesomeIcon icon={faUtensils}/>
             ABOUT ESSENTIALS
           </div>
         </aside>
@@ -37,7 +39,7 @@ export default ({ data }) => (
             体に必要不可欠な食べ物についての情報を発信しているサイトです。「おいしい食材をおいしく食べる」をモットーにしています。特に力を入れているのが、フルーツ、穀物、飲み物の３つです。
           </p>
           <h2>
-            <i className="fas fa-check-square" />
+            <FontAwesomeIcon icon={faCheckSquare}/>
             公開している記事
           </h2>
           <p>
@@ -49,7 +51,7 @@ export default ({ data }) => (
             <li>ユーザー間のオープンなコミュニケーションを基盤とした情報。</li>
           </ul>
           <h2>
-            <i className="fas fa-check-square" />
+            <FontAwesomeIcon icon={faCheckSquare}/>
             よく聞かれること
           </h2>
           <p>
