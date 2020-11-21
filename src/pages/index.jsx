@@ -2,20 +2,11 @@ import React from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import { Layout } from "../components/Layout/index"
+import SEO from "../components/seo"
 
 export default ({ data }) => (
   <Layout>
-    <meta charSet="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>ESSENTIALS</title>
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"
-      integrity="sha384-v8BU367qNbs/aIZIxuivaU55N5GPF89WBerHoGA4QTcbUjYiLQtKdrfXnqAcXyTv"
-      crossOrigin="anonymous"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="images/icon.png" type="image/png" />
+    <SEO />
     <section className="hero">
       <figure>
         <Img
