@@ -72,3 +72,6 @@ yarn-error.log
 # img
 static/images/
 yarn.lock
+
+# config
+gatsby-config.js
