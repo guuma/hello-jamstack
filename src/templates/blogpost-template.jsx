@@ -11,11 +11,12 @@ import { graphql, Link } from "gatsby"
 import Img from "gatsby-image"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { BLOCKS, INLINES } from "@contentful/rich-text-types"
-// import useContentfulImage from "../utils/useContentfulImage"
-
+import useContentfulImage from "../utils/useContentfulImage"
+import SEO from "../components/seo"
+import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer"
 export const query = graphql`
-  query {
-    contentfulBlogPost {
+  query($id: String!) {
+    contentfulBlogPost(id: { eq: $id }) {
       title
       publishDateJP: publishDate(formatString: "YYYY年MM月DD日")
       publishDate
@@ -29,6 +30,15 @@ export const query = graphql`
           ...GatsbyContentfulFluid_withWebp
         }
         description
+        file {
+          details {
+            image {
+              width
+              height
+            }
+          }
+          url
+        }
       }
       content {
         raw
@@ -61,8 +71,9 @@ const options = {
       // <pre>
       //   <code>{JSON.stringify(node, null, 2)}</code>
       // </pre>
-      <img
-        src={node.data.target.file.url}
+      <Img
+        fluid={useContentfulImage(node.data.target.file.url)}
+        // src={node.data.target.file.url}
         alt={node.data.target.description}
       />
     ),
@@ -75,15 +86,31 @@ const options = {
       )
     },
   },
+  renderText: text => {
+    return text.split("\n").reduce((children, textSegment, index) => {
+      return [...children, index > 0 && <br key={index} />, textSegment]
+    }, [])
+  },
 }
 
-export default ({ data }) => {
+export default ({ data, pageContext }) => {
   const { title, content } = data.contentfulBlogPost
+  console.log(documentToPlainTextString(content))
   // console.log(data.contentfulBlogPost.content.references[0].file)
   // console.log(JSON.stringify(data, null, 2))
 
   return (
     <Layout>
+      <SEO
+        pagetitle={data.contentfulBlogPost.title}
+        pagedesc={`${documentToPlainTextString(
+          data.contentfulBlogPost.content
+        ).slice(0, 70)}・・・`}
+        pagepath={location.pathname}
+        blogimg={`https:${data.contentfulBlogPost.eyecatch.file.url}`}
+        pageimgw={data.contentfulBlogPost.eyecatch.file.details.image.width}
+        pageimgh={data.contentfulBlogPost.eyecatch.file.details.image.height}
+      />
       <div>
         <div className="eyecatch">
           <figure>
@@ -119,18 +146,25 @@ export default ({ data }) => {
               {content && renderRichText(content, options)}
             </div>
             <ul className="postlink">
-              <li className="prev">
-                <a href="base-blogpost.html" rel="prev">
-                  <FontAwesomeIcon icon={faChevronLeft} />
-                  <span>前の記事</span>
-                </a>
-              </li>
-              <li className="next">
-                <a href="base-blogpost.html" rel="next">
-                  <span>次の記事</span>
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </a>
-              </li>
+              {pageContext.next && (
+                <li className="prev">
+                  <Link to={`/blog/post/${pageContext.next.slug}`} rel="prev">
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                    <span>{pageContext.next.title}</span>
+                  </Link>
+                </li>
+              )}
+              {pageContext.previous && (
+                <li className="next">
+                  <Link
+                    to={`/blog/post/${pageContext.previous.slug}`}
+                    rel="next"
+                  >
+                    <span>{pageContext.previous.title}</span>
+                    <FontAwesomeIcon icon={faChevronRight} />
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </article>
