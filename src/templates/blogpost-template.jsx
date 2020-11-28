@@ -14,6 +14,7 @@ import { BLOCKS, INLINES } from "@contentful/rich-text-types"
 import useContentfulImage from "../utils/useContentfulImage"
 import SEO from "../components/seo"
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer"
+
 export const query = graphql`
   query($id: String!) {
     contentfulBlogPost(id: { eq: $id }) {
@@ -73,7 +74,6 @@ const options = {
       // </pre>
       <Img
         fluid={useContentfulImage(node.data.target.file.url)}
-        // src={node.data.target.file.url}
         alt={node.data.target.description}
       />
     ),
@@ -93,9 +93,9 @@ const options = {
   },
 }
 
-export default ({ data, pageContext }) => {
+export default ({ data, pageContext, location }) => {
   const { title, content } = data.contentfulBlogPost
-  console.log(documentToPlainTextString(content))
+  // console.log(documentToPlainTextString(content))
   // console.log(data.contentfulBlogPost.content.references[0].file)
   // console.log(JSON.stringify(data, null, 2))
 
