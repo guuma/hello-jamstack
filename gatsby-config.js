@@ -11,7 +11,7 @@ module.exports = {
     title: `ESSENTIALS`,
     description: `おいしい食材と食事を探求するサイト`,
     lang: `ja`,
-    siteUrl: `https://hardcore-beaver-7ae081.netlify.app`,
+    siteUrl: process.env.SITE_URL,
     locale: `ja-JP`,
     fbappid: `☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓☓`,
   },
@@ -45,7 +45,7 @@ module.exports = {
         spaceId: process.env.CONTENTFUL_SPACE_ID,
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
         host: process.env.CONTENTFUL_HOST,
-      }
-    }
+      },
+    },
   ],
 }
