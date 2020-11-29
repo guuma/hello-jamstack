@@ -10,11 +10,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 
 export const query = graphql`
-  query($skip: Int!, $limit: Int!) {
+  query($category_id: String!, $skip: Int!, $limit: Int!) {
     allContentfulBlogPost(
       sort: { order: DESC, fields: publishDate }
       skip: $skip
       limit: $limit
+      filter: { category: { elemMatch: { id: { eq: $category_id } } } }
     ) {
       edges {
         node {
@@ -38,13 +39,13 @@ export default ({ data, location, pageContext }) => {
   return (
     <Layout>
       <SEO
-        pagetitle="ブログ"
-        pagedesc="ESSENTIALSのブログです"
+        pagetitle={`CATEGORY: ${pageContext.category_name}`}
+        pagedesc={`「${pageContext.category_name}」 カテゴリーの記事です`}
         pagepath={location.pathname}
       />
       <section className="content bloglist">
         <div className="container">
-          <h1 className="bar">RECENT POSTS</h1>
+          <h1 className="bar">CATEGORY: {pageContext.category_name}</h1>
           <div className="posts">
             {data.allContentfulBlogPost.edges.map(({ node }) => (
               <article className="post" key={node.id}>
@@ -67,8 +68,8 @@ export default ({ data, location, pageContext }) => {
                 <Link
                   to={
                     pageContext.currentPage === 2
-                      ? `/blog/`
-                      : `/blog/${pageContext.currentPage - 1}`
+                      ? `/category/${pageContext.category_slug}/`
+                      : `/category/${pageContext.category_slug}/${pageContext.currentPage - 1}`
                   }
                   rel="prev"
                 >
@@ -80,7 +81,7 @@ export default ({ data, location, pageContext }) => {
 
             {!pageContext.isLast && (
               <li className="next">
-                <Link to={`/blog/${pageContext.currentPage + 1}`} rel="next">
+                <Link to={`/category/${pageContext.category_slug}/${pageContext.currentPage + 1}`} rel="next">
                   <span>次のページ</span>
                   <FontAwesomeIcon icon={faChevronRight} />
                 </Link>

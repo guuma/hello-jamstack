@@ -136,7 +136,9 @@ export default ({ data, pageContext, location }) => {
                       className={categoryItem.categorySlug}
                       key={categoryItem.id}
                     >
-                      {categoryItem.category}
+                      <Link to={`/category/${categoryItem.categorySlug}`}>
+                        {categoryItem.category}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -147,8 +149,13 @@ export default ({ data, pageContext, location }) => {
             </div>
             <ul className="postlink">
               {pageContext.next && (
+                // gatsby-node.jsで`fields: publishDate, order: DESC`
+                // でsortしているため、記事が降順(新→古)に並べ替えられている
+                // そのため、`node.next`が新→古、`node.previous`古→新というデータの並びになっているため、
+                // prev_buttonで`node.next(現在のページより1つ古い記事)`、previous_buttonで`node.previous`
+                // (現在のページより1つ新しい記事)へ遷移するようしている
                 <li className="prev">
-                  <Link to={`/blog/post/${pageContext.next.slug}`} rel="prev">
+                  <Link to={`/blog/post/${pageContext.next.id}`} rel="prev">
                     <FontAwesomeIcon icon={faChevronLeft} />
                     <span>{pageContext.next.title}</span>
                   </Link>
@@ -156,10 +163,7 @@ export default ({ data, pageContext, location }) => {
               )}
               {pageContext.previous && (
                 <li className="next">
-                  <Link
-                    to={`/blog/post/${pageContext.previous.slug}`}
-                    rel="next"
-                  >
+                  <Link to={`/blog/post/${pageContext.previous.id}`} rel="next">
                     <span>{pageContext.previous.title}</span>
                     <FontAwesomeIcon icon={faChevronRight} />
                   </Link>

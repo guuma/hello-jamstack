@@ -97,7 +97,7 @@ export default ({ data }) => (
         <div className="posts">
           {data.allContentfulBlogPost.edges.map(({ node }) => (
             <article className="post" key={node.id}>
-              <Link href={`/blog/post/${node.slug}`}>
+              <Link href={`/blog/post/${node.id}`}>
                 <figure>
                   <Img
                     fluid={node.eyecatch.fluid}
