@@ -79,7 +79,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   blogresult.data.allContentfulCategory.edges.forEach(({ node }) => {
     const categoryPostPerPage = 6
-    console.log(node.blogpost);
     const allCategoryPosts = node.blogpost.length
     const categoryPages = Math.ceil(allCategoryPosts / categoryPostPerPage)
     Array.from({ length: categoryPages }).forEach((_, i) => {
