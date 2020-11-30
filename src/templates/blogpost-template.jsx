@@ -11,7 +11,7 @@ import { graphql, Link } from "gatsby"
 import Img from "gatsby-image"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { BLOCKS, INLINES } from "@contentful/rich-text-types"
-import useContentfulImage from "../utils/useContentfulImage"
+import useContentfulImage from "../components/useContentfulImage"
 import SEO from "../components/seo"
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer"
 

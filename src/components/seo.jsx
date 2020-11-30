@@ -31,7 +31,6 @@ export default props => {
     ? `${data.site.siteMetadata.siteUrl}${props.pageimg}`
     :  props.blogimg || `${data.site.siteMetadata.siteUrl}/thumb.jpg`
 
-  console.log(imgurl)
   const imgw = props.pageimgw || 1280
   const imgh = props.pageimgh || 640
 

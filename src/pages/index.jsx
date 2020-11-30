@@ -3,18 +3,13 @@ import { graphql, Link } from "gatsby"
 import Img from "gatsby-image"
 import { Layout } from "../components/Layout/index"
 import SEO from "../components/seo"
+import Image from '../components/useContentfulImage'
 
 export default ({ data }) => (
   <Layout>
     <SEO />
     <section className="hero">
-      <figure>
-        <Img
-          fluid={data.hero.childImageSharp.fluid}
-          alt=""
-          style={{ height: "100%" }}
-        />
-      </figure>
+      <Image filename="hero.jpg"  style={{height: "100%"}}/>
       <div className="catch">
         <h1>
           There is no love sincerer than
@@ -44,7 +39,7 @@ export default ({ data }) => (
         <div className="details">
           <div className="detail">
             <figure>
-              <Img fluid={data.fruit.childImageSharp.fluid} alt="" />
+              <Image filename="fruit.jpg" alt="" />
             </figure>
             <h3>フルーツ</h3>
             <p>FRUIT</p>
@@ -56,7 +51,7 @@ export default ({ data }) => (
           </div>
           <div className="detail">
             <figure>
-              <Img fluid={data.grain.childImageSharp.fluid} alt="" />
+              <Image filename="grain.jpg" alt="" />
             </figure>
             <h3>穀物</h3>
             <p>GRAIN</p>
@@ -68,7 +63,7 @@ export default ({ data }) => (
           </div>
           <div className="detail">
             <figure>
-              <Img fluid={data.beverage.childImageSharp.fluid} alt="" />
+              <Image filename="beverage.jpg" alt="" />
             </figure>
             <h3>飲み物</h3>
             <p>BEVERAGE</p>
@@ -84,8 +79,8 @@ export default ({ data }) => (
     <section className="photo">
       <h2 className="sr-only">Photo</h2>
       <figure>
-        <Img
-          fluid={data.berry.childImageSharp.fluid}
+        <Image
+          filename="berry.jpg"
           alt="赤く熟したベリー"
           style={{ height: "100%" }}
         />
@@ -117,64 +112,6 @@ export default ({ data }) => (
 
 export const query = graphql`
   query {
-    hero: file(relativePath: { eq: "hero.jpg" }) {
-      childImageSharp {
-        fluid(maxWidth: 1600) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
-    }
-    # 可変画像の最適化
-    fruit: file(relativePath: { eq: "fruit.jpg" }) {
-      childImageSharp {
-        fluid(maxWidth: 320) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
-    }
-    grain: file(relativePath: { eq: "grain.jpg" }) {
-      childImageSharp {
-        fluid(maxWidth: 320) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
-    }
-    beverage: file(relativePath: { eq: "beverage.jpg" }) {
-      childImageSharp {
-        fluid(maxWidth: 320) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
-    }
-    # 固定画像の最適化
-    fruit: file(relativePath: { eq: "fruit.jpg" }) {
-      childImageSharp {
-        fixed(width: 200) {
-          ...GatsbyImageSharpFixed_withWebp
-        }
-      }
-    }
-    grain: file(relativePath: { eq: "grain.jpg" }) {
-      childImageSharp {
-        fixed(width: 200) {
-          ...GatsbyImageSharpFixed_withWebp
-        }
-      }
-    }
-    beverage: file(relativePath: { eq: "beverage.jpg" }) {
-      childImageSharp {
-        fixed(width: 200) {
-          ...GatsbyImageSharpFixed_withWebp
-        }
-      }
-    }
-    berry: file(relativePath: { eq: "berry.jpg" }) {
-      childImageSharp {
-        fluid(maxWidth: 1600) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
-    }
     allContentfulBlogPost(
       sort: { order: DESC, fields: publishDate }
       skip: 0
